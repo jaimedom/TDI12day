@@ -7,11 +7,17 @@ from bokeh.layouts import row, widgetbox
 from bokeh.models import ColumnDataSource
 from bokeh.models.widgets import Button, RadioButtonGroup, TextInput
 from bokeh.embed import components
+from bokeh.resources import INLINE
+from bokeh.util.string import encode_utf8
 
 app = Flask(__name__)
 
 @app.route('/')
+def index():
+   
+    return 'Hello, TDI!'
 
+@app.route('/bokeh')
 def graph():
     
     # Set the parameters
@@ -96,11 +102,16 @@ def graph():
          
     button.on_click(update)
 
-    # Create layout
+    # Render
 
     layout = row(widget_box,p)
+    js_resources = INLINE.render_js()
+    css_resources = INLINE.render_css()
     script, div = components(layout)
-    return render_template("iris_index1.html", script=script, div=div)
+    html = render_template("iris_index1.html", script=script, div=div, js_resources=js_resources,
+        css_resources=css_resources)
+    
+    return encode_utf8(html)
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0',port=33507)
