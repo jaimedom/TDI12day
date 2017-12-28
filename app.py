@@ -4,6 +4,7 @@ import requests
 import pandas as pd
 from bokeh.plotting import figure
 from bokeh.embed import components
+from bokeh.util.string import encode_utf8
 
 app = Flask(__name__)
 
@@ -50,9 +51,11 @@ def index():
     p.line(x=df[0],y=df[1],color='blue',legend=None)
     script, div = components(p)
     
-    return render_template("plot.html", script=script, div=div,
+    html = render_template("plot.html", script=script, div=div,
             price_options=price_options, current_code=code, 
             current_selected_price=price)
+    
+    return encode_utf8(html)
     
 if __name__ == '__main__':
 	app.run(host='0.0.0.0',port=33507, debug=True)
