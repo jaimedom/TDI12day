@@ -1,35 +1,36 @@
-<html>
-<head>
-<link
-    href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.css"
-    rel="stylesheet" type="text/css">
-<link
-    href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.css"
-    rel="stylesheet" type="text/css">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Skeleton application demoing Heroku and Flask integration.">
+    <meta name="author" content="@gotoariel">
+    <!-- <link rel="icon" href="favicon.ico"> -->
 
-<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.js"></script>
-<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.js"></script>
+    <title>Wilkommen, bienvenue, and welcome to Heroku!</title>
 
-</head>
-<body>
-<H1>The data incubator 12 day</H1>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body>
+    <H1>The data incubator 12 day</H1>
 
-<form action="/">
-Company code: <input type="text" name="code" value="{{ current_code }}"><br>
-<select name="price_option">
-	{% for price in price_options %}
-		{% if price == current_selected_price %}
-			<option selected value="{{ price }}">{{ price }}</option> 
-		{% else %} 
-			<option value="{{ price }}">{{ price }}</option> 
-		{% endif %}
-	{% endfor %}
-</select>
-<input type="submit">
-</form>
-
-{{ script|safe }}
-{{ div|safe }}
-
-</body>
+    <form action="/">
+    Company code: <input type="text" name="code" value="{{ current_code }}"><br>
+    <select name="price_option">
+        {% for price in price_options %}
+            {% if price == current_selected_price %}
+                <option selected value="{{ price }}">{{ price }}</option> 
+            {% else %} 
+                <option value="{{ price }}">{{ price }}</option> 
+            {% endif %}
+        {% endfor %}
+    </select>
+    <input type="submit">
+    </form>
+    {{ script|safe }}
+    {{ div|safe }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
 </html>
