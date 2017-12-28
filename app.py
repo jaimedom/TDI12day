@@ -21,10 +21,10 @@ def index():
         price = 'Open'
         
     price_search = {'Close': 'close',
-                    'Adjusted close': 'adj_close',
-                    'Open': 'open',
-                    'Adjusted Open': 'adj_open'
-                   }[price]
+             'Adjusted close': 'adj_close',
+             'Open': 'open',
+             'Adjusted Open': 'adj_open'
+            }[price]
         
     api_key = '6LqqHDqZYZX4TaPdPnKR'
     
@@ -33,26 +33,26 @@ def index():
     quandl += '&qopts.columns=date,' + price_search
     quandl += '&api_key=' + api_key
     
-    json_file = requests.get(quandl).json()
-    df = pd.DataFrame(json_file['datatable']['data'])
+    quandl_data = requests.get(quandl)
+    stock_load = json.loads(quandl_data.content) 
+    df = pd.DataFrame(stock_load['datatable']['data'])
     df[0] = pd.DatetimeIndex(df[0])
-    source = ColumnDataSource(data = {'0':df[0],'1':df[1]})
 
     p = figure(title = 'Price for '+ code,
                x_axis_label = 'Date',
                y_axis_label = 'Price ($)',
                x_axis_type = 'datetime'
-              )
+               )
 
     p.y_range.start = min(df[1])
     p.y_range.end = max(df[1])
 
-    p.line(x='0',y='1',source=source,color='blue',legend=None)
+    p.line(x=df[0],y=df[1],color='blue',legend=None)
     script, div = components(p)
     
     return render_template("plot.html", script=script, div=div,
-                          price_options=price_options, current_code=code, 
-                          current_selected_price=price)
+		price_options=price_options, current_code=code, 
+         current_selected_price=price)
 
 if __name__ == '__main__':
     app.run(port=33507,debug=True)
