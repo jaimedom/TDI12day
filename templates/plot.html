@@ -1,14 +1,14 @@
 <html>
 <head>
-<link
-    href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.css"
-    rel="stylesheet" type="text/css">
-<link
-    href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.css"
-    rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-0.11.0.min.css" type="text/css">
 
-<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.js"></script>
-<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.js"></script>
+<script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-0.11.0.min.js"></script>
+<script type="text/javascript">
+  Bokeh.set_log_level("info");
+</script>
+
+  {{ script|safe }}
 
 </head>
 <body>
@@ -28,8 +28,10 @@ Company code: <input type="text" name="code" value="{{ current_code }}"><br>
 <input type="submit">
 </form>
 
-{{ script|safe }}
-{{ div|safe }}
-
+  {{ div|safe }}
+    
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
 </body>
 </html>
