@@ -51,11 +51,9 @@ def index():
     p.line(x=df[0],y=df[1],color='blue',legend=None)
     script, div = components(p)
     
-    html = render_template("plot.html", script=script, div=div,
+    return render_template("plot.html", script=script, div=div,
             price_options=price_options, current_code=code, 
             current_selected_price=price)
-    
-    return encode_utf8(html)
     
 if __name__ == '__main__':
 	app.run(host='0.0.0.0',port=33507, debug=True)
