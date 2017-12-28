@@ -21,10 +21,10 @@ def index():
         price = 'Open'
         
     price_search = {'Close': 'close',
-             'Adjusted close': 'adj_close',
-             'Open': 'open',
-             'Adjusted Open': 'adj_open'
-            }[price]
+                    'Adjusted close': 'adj_close',
+                    'Open': 'open',
+                    'Adjusted Open': 'adj_open'
+                   }[price]
         
     api_key = '6LqqHDqZYZX4TaPdPnKR'
     
@@ -50,9 +50,8 @@ def index():
     p.line(x=df[0],y=df[1],color='blue',legend=None)
     script, div = components(p)
     
-    return render_template("plot.html", script=script, div=div,
-		price_options=price_options, current_code=code, 
-         current_selected_price=price)
+    return render_template("plot.html", script=script, div=div, price_options=price_options, 
+                           current_code=code, current_selected_price=price)
 
 if __name__ == '__main__':
-    app.run(port=33507,debug=True)
+    app.run(host='0.0.0.0',port=33507,debug=True)
