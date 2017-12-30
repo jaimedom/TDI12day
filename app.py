@@ -21,11 +21,14 @@ def index():
     if price == None:
         price = 'Open'
     
-    price_search = {'Close': 'close',
-                    'Adjusted close': 'adj_close',
-                    'Open': 'open',
-                    'Adjusted Open': 'adj_open'
-                   }[price]
+    try:    
+        price_search = {'Close': 'close',
+                 'Adjusted close': 'adj_close',
+                 'Open': 'open',
+                 'Adjusted Open': 'adj_open'
+                }[price]
+    except:
+        price_search = 'open'
         
     api_key = '6LqqHDqZYZX4TaPdPnKR'
     
@@ -37,7 +40,6 @@ def index():
     quandl_data = requests.get(quandl)
     stock_load = json.loads(quandl_data.content) 
     df = pd.DataFrame(stock_load['datatable']['data'])
-    df[0] = pd.DatetimeIndex(df[0])
 
     p = figure(title = 'Price for '+ code,
                x_axis_label = 'Date',
@@ -45,10 +47,12 @@ def index():
                x_axis_type = 'datetime'
                )
 
-    p.y_range.start = min(df[1])
-    p.y_range.end = max(df[1])
-
-    p.line(x=df[0],y=df[1],color='blue',legend=None)
+    if not df.empty:
+        df[0] = pd.DatetimeIndex(df[0])
+        p.y_range.start = min(df[1])
+        p.y_range.end = max(df[1])
+        p.line(x=df[0],y=df[1],color='blue',legend=None)
+    
     script, div = components(p)
     
     return render_template("plot.html", script=script, div=div,
